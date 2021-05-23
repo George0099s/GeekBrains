@@ -73,11 +73,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val color = when
-        (weather.type) {
-        WeatherType.SUNNY -> Color.RED
-        WeatherType.RAINY -> {
-        }
-        WeatherType.CLOUDY -> TODO()
-    }
+//    val color = when
+//        (weather.type) {
+//        WeatherType.SUNNY -> Color.RED
+//        WeatherType.RAINY -> {
+//        }
+//        WeatherType.CLOUDY -> TODO()
+//    }
 }
