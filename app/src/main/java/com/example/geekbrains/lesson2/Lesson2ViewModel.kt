@@ -29,11 +29,22 @@ class Lesson2ViewModel : ViewModel() {
         return liveData
     }
 
-    fun getWeatherFromLocalSource() {
+    fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(isRussian = true)
+
+    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(isRussian = false)
+
+    fun getWeatherFromRemoteSource() = getDataFromLocalSource(isRussian = true)
+
+    private fun getDataFromLocalSource(isRussian: Boolean) {
         liveData.value = AppState.Loading
         Thread {
             sleep(1000)
-            liveData.postValue(AppState.Success(repo.getWeatherFromLocalStorage()))
+            liveData.postValue(
+                AppState.Success(
+                    if (isRussian) repo.getWeatherFromLocalStorageRus()
+                    else repo.getWeatherFromLocalStorageWorld()
+                )
+            )
         }.start()
     }
 }

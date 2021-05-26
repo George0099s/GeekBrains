@@ -41,17 +41,17 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.title = if (noteED != null) "title1" else "title2"
 
-        for (weather in Repository.getWeatherList())
-            print(weather)
-
-        for (i in 0..10)
-            print(i)
-
-        for (i in 10 downTo 1 step 2)
-            print(i)
-
-        for (i in 0 until Repository.getWeatherList().size)
-            print(i)
+//        for (weather in Repository.getWeatherList())
+//            print(weather)
+//
+//        for (i in 0..10)
+//            print(i)
+//
+//        for (i in 10 downTo 1 step 2)
+//            print(i)
+//
+//        for (i in 0 until Repository.getWeatherList().size)
+//            print(i)
 
     }
 

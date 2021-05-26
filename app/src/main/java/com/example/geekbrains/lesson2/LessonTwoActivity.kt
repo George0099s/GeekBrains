@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.geekbrains.R
 import com.example.geekbrains.databinding.ActivityLessonTwoBinding
+import com.example.geekbrains.lesson3.Lesson3Fragment
 
 class LessonTwoActivity : AppCompatActivity() {
 
@@ -12,6 +13,6 @@ class LessonTwoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLessonTwoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().add(R.id.cont, Lesson2()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.cont, Lesson3Fragment()).commit()
     }
 }
