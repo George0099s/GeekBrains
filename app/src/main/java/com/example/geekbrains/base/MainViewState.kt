@@ -1,4 +1,6 @@
-package com.example.geekbrains
+package com.example.geekbrains.base
+
+import com.example.geekbrains.Weather
 
 class MainViewState(val weatherList: List<Weather>){
 

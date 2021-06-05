@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.geekbrains.Lesson3Details
 import com.example.geekbrains.R
 import com.example.geekbrains.Weather
-import com.example.geekbrains.databinding.Lesson2FragmentBinding
 import com.example.geekbrains.databinding.Lesson3FramentFragmentBinding
 import com.example.geekbrains.lesson2.AppState
-import com.example.geekbrains.lesson2.Lesson2ViewModel
+import com.example.geekbrains.Lesson2ViewModel
+import com.example.geekbrains.lesson4.replaceWithBackStack
+import com.example.geekbrains.lesson4.showSnackBar
 import com.google.android.material.snackbar.Snackbar
 
 class Lesson3Fragment : Fragment(), ActionListener {
@@ -19,7 +21,10 @@ class Lesson3Fragment : Fragment(), ActionListener {
     private var _binding: Lesson3FramentFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: Lesson2ViewModel
+    private val viewModel: Lesson2ViewModel by lazy {
+        ViewModelProvider(this).get(Lesson2ViewModel::class.java)
+    }
+
     private val adapter = MainFragmentAdapter(this)
     private var isDataSetRus: Boolean = true
 
@@ -35,8 +40,12 @@ class Lesson3Fragment : Fragment(), ActionListener {
         super.onViewCreated(view, savedInstanceState)
         binding.mainFragmentRecyclerView.adapter = adapter
         binding.mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
-        viewModel = ViewModelProvider(this).get(Lesson2ViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+
+        "sss".also(::print)
+        viewModel.getData().observe(viewLifecycleOwner) {
+
+            renderData(it)
+        }
         viewModel.getWeatherFromLocalSourceRus()
     }
 
@@ -62,25 +71,26 @@ class Lesson3Fragment : Fragment(), ActionListener {
             }
             is AppState.Error -> {
                 binding.mainFragmentLoadingLayout.visibility = View.GONE
-                Snackbar
-                    .make(binding.mainFragmentFAB, "Error", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Reload") { viewModel.getWeatherFromLocalSourceRus() }
-                    .show()
+                binding.mainFragmentFAB.showSnackBar(
+                    "Error",
+                    "Reload",
+                    { viewModel.getWeatherFromLocalSourceRus() },
+                    Snackbar.LENGTH_INDEFINITE
+                )
             }
         }
     }
-
     companion object {
         fun newInstance() =
             Lesson3Fragment()
     }
 
     override fun action(weather: Weather) {
-        val bundle = Bundle()
-        bundle.putParcelable(Lesson3Details.BUNDLE_EXTRA, weather)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.cont, Lesson3Details.newInstance(bundle))
-            .addToBackStack("")
-            .commitAllowingStateLoss()
+        replaceWithBackStack(
+            R.id.cont,
+            Lesson3Details.newInstance(Bundle().apply {
+                putParcelable(Lesson3Details.BUNDLE_EXTRA, weather)
+            })
+        )
     }
 }

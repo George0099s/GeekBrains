@@ -1,14 +1,11 @@
-package com.example.geekbrains.lesson2
+package com.example.geekbrains
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.example.geekbrains.lesson2.AppState
 import com.example.geekbrains.lesson2.repositoty.Repo
 import com.example.geekbrains.lesson2.repositoty.RepoImpl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.lang.Thread.sleep
 
 class Lesson2ViewModel : ViewModel() {
@@ -36,7 +33,7 @@ class Lesson2ViewModel : ViewModel() {
     fun getWeatherFromRemoteSource() = getDataFromLocalSource(isRussian = true)
 
     private fun getDataFromLocalSource(isRussian: Boolean) {
-        liveData.value = AppState.Loading
+        liveData.value = AppState.Error()
         Thread {
             sleep(1000)
             liveData.postValue(

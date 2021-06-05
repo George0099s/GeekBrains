@@ -1,4 +1,4 @@
-package com.example.geekbrains
+package com.example.geekbrains.base
 
 import androidx.lifecycle.ViewModel
 

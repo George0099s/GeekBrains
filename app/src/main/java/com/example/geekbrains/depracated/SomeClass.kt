@@ -1,4 +1,4 @@
-package com.example.geekbrains
+package com.example.geekbrains.depracated
 
 class SomeClass {
     fun doSmthg() {
